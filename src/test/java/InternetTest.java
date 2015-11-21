@@ -2,7 +2,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -12,9 +11,6 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Admin on 23.10.2015.
- */
 public class InternetTest {
 
     private WebDriver driver;
@@ -43,10 +39,8 @@ public class InternetTest {
         WebElement finishBlock = driver.findElement(By.id("finish"));
         startButton.click();
         Assert.assertFalse(startButton.isDisplayed(), "startButton did not disappear");
-//        Thread.sleep(10000); //лучше не использовать
         WebDriverWait wait = new WebDriverWait(driver, 12);
         wait.until(ExpectedConditions.visibilityOf(finishBlock));
-//        Assert.assertTrue(driver.getPageSource().contains("Hello World!"));
         Assert.assertTrue(finishBlock.isDisplayed(), "finishBlock is invisible");
         Assert.assertEquals(finishBlock.getText(), "Hello World!");
     }
@@ -55,23 +49,14 @@ public class InternetTest {
     public void elementAppearedTest() {
         driver.findElement(By.linkText("Dynamic Loading")).click();
         driver.findElement(By.partialLinkText("Example 2")).click();
-
         WebElement startButton = driver.findElement(By.cssSelector("#start>button"));
-
         startButton.click();
         Assert.assertFalse(startButton.isDisplayed(), "startButton did not disappear");
         By finish = By.id("finish");
         WebDriverWait wait = new WebDriverWait(driver, 12);
         wait.until(ExpectedConditions.visibilityOfElementLocated(finish));
-
         WebElement finishBlock = driver.findElement(finish);
         Assert.assertTrue(finishBlock.isDisplayed(), "finishBlock is invisible");
-
-
-
-//        WebDriverWait wait = new WebDriverWait(driver, 12);
-//        wait.until(ExpectedConditions.visibilityOf(finishBlock));
-
         Assert.assertEquals(finishBlock.getText(), "Hello World!");
     }
 }
